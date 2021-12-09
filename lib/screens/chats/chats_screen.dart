@@ -20,7 +20,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         backgroundColor: kPrimaryColor,
         child: Icon(
           Icons.person_add_alt_1,
-          color: Colors.white,
+          color: Color(0xFF969696),
         ),
       ),
       bottomNavigationBar: buildBottomNavigationBar(),

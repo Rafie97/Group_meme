@@ -13,7 +13,7 @@ class WelcomeScreen extends StatelessWidget {
             Image.asset("assets/images/welcome_image.png"),
             Spacer(flex: 3),
             Text(
-              "Welcome to our freedom \nmessaging app",
+              "Welcome to Meme Messenger",
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
@@ -22,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              "Freedom talk any person of your \nmother language.",
+              "Freedom to send memes safely",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context)
