@@ -1,11 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:chat/constants.dart';
 
-import '../../../constants.dart';
+class ChatInputField extends StatefulWidget {
+  const ChatInputField({Key? key}) : super(key: key);
+  @override
+  _ChatInputState createState() => _ChatInputState();
+}
 
-class ChatInputField extends StatelessWidget {
-  const ChatInputField({
-    Key? key,
-  }) : super(key: key);
+class _ChatInputState extends State<ChatInputField> {
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +56,7 @@ class ChatInputField extends StatelessWidget {
                     SizedBox(width: kDefaultPadding / 4),
                     Expanded(
                       child: TextField(
+                        controller: myController,
                         decoration: InputDecoration(
                           hintText: "Type message",
                           border: InputBorder.none,
@@ -64,9 +76,25 @@ class ChatInputField extends StatelessWidget {
                 ),
               ),
             ),
+            IconButton(
+              icon: Icon(Icons.send, size: 30, color: kPrimaryColor),
+              onPressed: () => sendMessage(myController.text),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+Future<DocumentReference> sendMessage(String message) {
+  return FirebaseFirestore.instance
+      .collection('chats')
+      .doc('meme_channel_1')
+      .collection('messages')
+      .add({
+    'content': message,
+    'userId': '1',
+    'timestamp': FieldValue.serverTimestamp(),
+  });
 }
