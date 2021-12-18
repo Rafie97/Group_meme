@@ -1,9 +1,9 @@
-import 'package:chat/constants.dart';
+import 'package:meme_messenger/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'components/body.dart';
 
-class MessagesScreen extends StatelessWidget {
+class MessageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

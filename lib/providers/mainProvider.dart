@@ -1,5 +1,5 @@
-import 'package:chat/screens/welcome/welcome_screen.dart';
-import 'package:chat/theme.dart';
+import 'package:meme_messenger/screens/welcome/welcome_screen.dart';
+import 'package:meme_messenger/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -1,6 +1,6 @@
-import 'package:chat/components/primary_button.dart';
-import 'package:chat/constants.dart';
-import 'package:chat/screens/chats/chats_screen.dart';
+import 'package:meme_messenger/components/primary_button.dart';
+import 'package:meme_messenger/constants.dart';
+import 'package:meme_messenger/screens/chats/chats_screen.dart';
 import 'package:flutter/material.dart';
 
 class SigninOrSignupScreen extends StatelessWidget {

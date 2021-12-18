@@ -1,6 +1,10 @@
-import 'package:chat/constants.dart';
+import 'package:meme_messenger/constants.dart';
 import 'package:flutter/material.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meme_messenger/providers/conversationProvider.dart';
+import 'package:meme_messenger/screens/welcome/welcome_screen.dart';
+import 'package:provider/provider.dart';
 import 'components/body.dart';
 
 class ChatsScreen extends StatefulWidget {
@@ -13,9 +17,13 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // final FirebaseAuth firebaseUser = Provider.of<FirebaseAuth>(context);
+    // (firebaseUser == null)
+    //     ? WelcomeScreen()
+    //     :
     return Scaffold(
       appBar: buildAppBar(),
-      body: Body(),
+      body: ConversationProvider(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: kPrimaryColor,

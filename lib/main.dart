@@ -1,4 +1,4 @@
-import 'package:chat/providers/mainProvider.dart';
+import 'package:meme_messenger/providers/mainProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
