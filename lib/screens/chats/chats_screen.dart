@@ -23,7 +23,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
     //     :
     return Scaffold(
       appBar: buildAppBar(),
-      body: ConversationProvider(),
+      body: Body(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: kPrimaryColor,

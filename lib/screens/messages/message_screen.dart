@@ -1,5 +1,6 @@
 import 'package:meme_messenger/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_messenger/providers/conversationProvider.dart';
 
 import 'components/body.dart';
 
@@ -8,7 +9,7 @@ class MessageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Body(),
+      body: ConversationProvider(),
     );
   }
 

@@ -6,42 +6,45 @@ enum ChatMessageType { text, audio, image, video }
 enum MessageStatus { not_sent, not_view, viewed }
 
 class ChatMessage {
-  String userId;
-  String content;
-  dynamic timestamp;
-  ChatMessageType? messageType;
-  MessageStatus? messageStatus;
-  bool isSender;
+  final String userId;
+  final String content;
+  final dynamic timestamp;
+  final ChatMessageType messageType;
+  final MessageStatus messageStatus;
+  final bool isSender;
 
   factory ChatMessage.fromMap(Map<String, dynamic> data) {
-    final ChatMessage msg = ChatMessage(
-      userId: '1',
-      content: 'dsf',
-      timestamp: Timestamp.now(),
-      messageType: ChatMessageType.text,
-      messageStatus: MessageStatus.not_sent,
-      isSender: true,
-    );
+    var USERID = "";
+    var CONTENT = "";
+    var TIMESTAMP = Timestamp.now();
+    var MESSAGETYPE = ChatMessageType.text;
+    var MESSAGESTATUS = MessageStatus.viewed;
+    var ISSENDER = false;
 
-    data.forEach((key, value) => {
+    var map = Map.castFrom(data as Map<String, dynamic>);
+
+    map.forEach((key, value) => {
           if (key == 'userId')
-            {msg.userId = value as String}
+            {USERID = value as String}
           else if (key == 'content')
-            {msg.content = value as String}
+            {CONTENT = value as String}
           else if (key == 'timestamp')
-            {msg.timestamp = value as dynamic}
+            {TIMESTAMP = value as dynamic}
           else if (key == 'messageType')
-            {msg.messageType = value as ChatMessageType}
+            {MESSAGETYPE = value as ChatMessageType}
           else if (key == 'messageStatus')
-            {msg.messageStatus = value as MessageStatus}
+            {MESSAGESTATUS = value as MessageStatus}
           else if (key == 'isSender')
-            {msg.isSender = value as bool}
+            {ISSENDER = value as bool}
         });
 
-    print("YOOOO");
-    print(data);
-
-    return msg;
+    return new ChatMessage(
+        userId: USERID,
+        content: CONTENT,
+        timestamp: TIMESTAMP,
+        messageType: MESSAGETYPE,
+        messageStatus: MESSAGESTATUS,
+        isSender: ISSENDER);
   }
 
   ChatMessage({

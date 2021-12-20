@@ -7,12 +7,12 @@ import 'text_message.dart';
 import 'video_message.dart';
 
 class Message extends StatelessWidget {
+  final ChatMessage message;
+
   const Message({
     Key? key,
     required this.message,
   }) : super(key: key);
-
-  final ChatMessage message;
 
   @override
   Widget build(BuildContext context) {
