@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_messenger/models/Convo.dart';
 import 'package:meme_messenger/screens/messages/components/body.dart';
 import 'package:meme_messenger/screens/messages/message_screen.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,10 @@ class ConversationProvider extends StatelessWidget {
       .collection('chats')
       .doc("meme_channel_1")
       .collection('messages')
+      .orderBy('timestamp', descending: false)
       .snapshots();
+
+  final lastMessageKey = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +32,22 @@ class ConversationProvider extends StatelessWidget {
           return Text("Loading");
         }
 
-        final convo = snapshot.data!.docs.map((DocumentSnapshot document) {
+        final messages = snapshot.data!.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+          print(data['userId']);
+          final bool isSendr = data['userId'].toString() == '1';
           return ChatMessage(
             userId: data['userId'],
             content: data['content'],
+            timestamp: data['timestamp'],
+            isSender: isSendr,
           );
         }).toList();
 
-        return Body(convoStream: convo);
+        final convo = new Convo(
+            convoId: '1', messages: messages, lastMessage: messages.last);
+
+        return Body(convo: convo);
       },
     );
   }

@@ -11,6 +11,19 @@ class ChatInputField extends StatefulWidget {
 class _ChatInputState extends State<ChatInputField> {
   final myController = TextEditingController();
 
+  Future<DocumentReference> sendMessage(String message) {
+    myController.clear();
+    return FirebaseFirestore.instance
+        .collection('chats')
+        .doc('meme_channel_1')
+        .collection('messages')
+        .add({
+      'content': message,
+      'userId': '1',
+      'timestamp': FieldValue.serverTimestamp(),
+    });
+  }
+
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -85,16 +98,4 @@ class _ChatInputState extends State<ChatInputField> {
       ),
     );
   }
-}
-
-Future<DocumentReference> sendMessage(String message) {
-  return FirebaseFirestore.instance
-      .collection('chats')
-      .doc('meme_channel_1')
-      .collection('messages')
-      .add({
-    'content': message,
-    'userId': '1',
-    'timestamp': FieldValue.serverTimestamp(),
-  });
 }
