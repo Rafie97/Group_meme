@@ -39,6 +39,5 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
-
-/hiddenConfig
+/lib/hiddenConfig
 /android/app/google-services.json
