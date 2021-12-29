@@ -41,3 +41,4 @@ app.*.symbols
 app.*.map.json
 
 /hiddenConfig
+/android/app/google-services.json
