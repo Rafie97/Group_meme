@@ -27,7 +27,7 @@ class MessageScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Kristin Watson",
+                "Ethnochatinalists",
                 style: TextStyle(fontSize: 16),
               ),
               Text(
