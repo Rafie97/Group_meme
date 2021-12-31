@@ -1,25 +1,36 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_messenger/constants.dart';
+import 'package:meme_messenger/screens/messages/components/message.dart';
 
 class ChatInputField extends StatefulWidget {
-  const ChatInputField({Key? key}) : super(key: key);
+  final GlobalKey lastMessageKey;
+  final String userId;
+  const ChatInputField(
+      {Key? key, required this.lastMessageKey, required this.userId})
+      : super(key: key);
   @override
-  _ChatInputState createState() => _ChatInputState();
+  _ChatInputState createState() =>
+      _ChatInputState(lastMessageKey: lastMessageKey, userId: userId);
 }
 
 class _ChatInputState extends State<ChatInputField> {
   final myController = TextEditingController();
+  final GlobalKey lastMessageKey;
+  final String userId;
+
+  _ChatInputState({required this.lastMessageKey, required this.userId});
 
   Future<DocumentReference> sendMessage(String message) {
     myController.clear();
+    // Scrollable.ensureVisible(lastMessageKey.currentContext!);
     return FirebaseFirestore.instance
         .collection('chats')
         .doc('meme_channel_1')
         .collection('messages')
         .add({
       'content': message,
-      'userId': '1',
+      'userId': this.userId,
       'timestamp': FieldValue.serverTimestamp(),
     });
   }

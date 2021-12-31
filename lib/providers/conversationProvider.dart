@@ -21,34 +21,39 @@ class ConversationProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: _convoStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
+    return Consumer(builder: (context, User? user, child) {
+      final userId = user?.uid ?? '';
+      return StreamBuilder<QuerySnapshot>(
+        stream: _convoStream,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong');
+          }
 
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
-        }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text("Loading");
+          }
 
-        final messages = snapshot.data!.docs.map((DocumentSnapshot document) {
-          Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-          print(data['userId']);
-          final bool isSendr = data['userId'].toString() == '1';
-          return ChatMessage(
-            userId: data['userId'],
-            content: data['content'],
-            timestamp: data['timestamp'],
-            isSender: isSendr,
-          );
-        }).toList();
+          final messages = snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data =
+                document.data()! as Map<String, dynamic>;
 
-        final convo = new Convo(
-            convoId: '1', messages: messages, lastMessage: messages.last);
+            final bool isSendr =
+                userId.isNotEmpty && data['userId'].toString() == userId;
+            return ChatMessage(
+              userId: data['userId'],
+              content: data['content'],
+              timestamp: data['timestamp'],
+              isSender: isSendr,
+            );
+          }).toList();
 
-        return Body(convo: convo);
-      },
-    );
+          final convo = new Convo(
+              convoId: '1', messages: messages, lastMessage: messages.last);
+
+          return Body(convo: convo);
+        },
+      );
+    });
   }
 }

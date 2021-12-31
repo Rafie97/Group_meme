@@ -2,6 +2,7 @@ import 'package:meme_messenger/components/primary_button.dart';
 import 'package:meme_messenger/constants.dart';
 import 'package:meme_messenger/screens/chats/chats_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SigninOrSignupScreen extends StatelessWidget {
   @override
@@ -21,14 +22,16 @@ class SigninOrSignupScreen extends StatelessWidget {
               ),
               Spacer(),
               PrimaryButton(
-                text: "Sign In",
-                press: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatsScreen(),
-                  ),
-                ),
-              ),
+                  text: "Sign In Anonymously",
+                  press: () {
+                    FirebaseAuth.instance.signInAnonymously();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatsScreen(),
+                      ),
+                    );
+                  }),
               SizedBox(height: kDefaultPadding * 1.5),
               PrimaryButton(
                 color: Theme.of(context).colorScheme.secondary,

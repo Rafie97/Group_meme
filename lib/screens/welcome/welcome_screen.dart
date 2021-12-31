@@ -27,12 +27,12 @@ class WelcomeScreen extends StatelessWidget {
               style: TextStyle(
                 color: Theme.of(context)
                     .textTheme
-                    .bodyText1!
+                    .headline1!
                     .color!
                     .withOpacity(0.64),
               ),
             ),
-            Spacer(flex: 3),
+            Spacer(),
             FittedBox(
               child: TextButton(
                   onPressed: () => Navigator.push(
@@ -43,15 +43,19 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                   child: Row(
                     children: [
-                      Text(
-                        "Skip",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .color!
-                                  .withOpacity(0.8),
-                            ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          "Next",
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .color!
+                                        .withOpacity(0.8),
+                                  ),
+                        ),
                       ),
                       SizedBox(width: kDefaultPadding / 4),
                       Icon(
@@ -65,7 +69,8 @@ class WelcomeScreen extends StatelessWidget {
                       )
                     ],
                   )),
-            )
+            ),
+            Spacer(flex: 2),
           ],
         ),
       ),

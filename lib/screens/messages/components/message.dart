@@ -10,7 +10,7 @@ class Message extends StatelessWidget {
   final ChatMessage message;
 
   const Message({
-    Key? key,
+    GlobalKey? key,
     required this.message,
   }) : super(key: key);
 

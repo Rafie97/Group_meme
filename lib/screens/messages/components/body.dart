@@ -1,37 +1,56 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meme_messenger/constants.dart';
 import 'package:meme_messenger/models/ChatMessage.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_messenger/models/Convo.dart';
 import 'package:provider/provider.dart';
-// import 'package:flutter_hooks/flutter_hooks.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'chat_input_field.dart';
 import 'message.dart';
 
-class Body extends StatelessWidget {
-  final lastMessageKey = new GlobalKey();
+class Body extends HookWidget {
   final Convo convo;
   Body({
     Key? key,
     required this.convo,
   }) : super(key: key);
 
-  // Scrollable.ensureVisible(lastMessageKey.currentContext!);
-
   @override
   Widget build(BuildContext context) {
+    final lastMessageKey = useState(new GlobalKey());
+
+    useEffect(() {
+      lastMessageKey.value = new GlobalKey();
+      if (lastMessageKey.value.currentContext != null) {
+        Scrollable.ensureVisible(lastMessageKey.value.currentContext!);
+      }
+    }, [convo.lastMessage]);
+
     return Column(
       children: [
         Expanded(
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: ListView(children: [
-                ...convo.messages.map((message) => Message(message: message)),
-                Message(message: convo.lastMessage, key: lastMessageKey),
+                for (int i = 0; i < convo.messages.length - 1; i++)
+                  Message(
+                    key: GlobalKey(),
+                    message: convo.messages[i],
+                  ),
+                Message(
+                  key: lastMessageKey.value,
+                  message: convo.lastMessage,
+                ),
               ])),
         ),
-        ChatInputField(),
+        Consumer(builder: (context, User? user, child) {
+          final userId = user?.uid ?? '';
+          return ChatInputField(
+            userId: userId,
+            lastMessageKey: lastMessageKey.value,
+          );
+        })
       ],
     );
   }
