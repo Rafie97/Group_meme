@@ -21,8 +21,8 @@ class Body extends HookWidget {
     final lastMessageKey = useState(new GlobalKey());
 
     useEffect(() {
-      lastMessageKey.value = new GlobalKey();
       if (lastMessageKey.value.currentContext != null) {
+        print('CONTEXXXXXXXXXX + ${lastMessageKey.value.currentContext}');
         Scrollable.ensureVisible(lastMessageKey.value.currentContext!);
       }
     }, [convo.lastMessage]);
@@ -32,7 +32,8 @@ class Body extends HookWidget {
         Expanded(
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              child: ListView(children: [
+              child: SingleChildScrollView(
+                  child: Column(children: [
                 for (int i = 0; i < convo.messages.length - 1; i++)
                   Message(
                     key: GlobalKey(),
@@ -42,7 +43,7 @@ class Body extends HookWidget {
                   key: lastMessageKey.value,
                   message: convo.lastMessage,
                 ),
-              ])),
+              ]))),
         ),
         Consumer(builder: (context, User? user, child) {
           final userId = user?.uid ?? '';

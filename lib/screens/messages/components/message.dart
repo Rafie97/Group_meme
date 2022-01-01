@@ -7,16 +7,17 @@ import 'text_message.dart';
 import 'video_message.dart';
 
 class Message extends StatelessWidget {
+  final GlobalKey key;
   final ChatMessage message;
 
   const Message({
-    GlobalKey? key,
+    required this.key,
     required this.message,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Widget messageContaint(ChatMessage message) {
+    Widget messageContainer(ChatMessage message) {
       switch (message.messageType) {
         case ChatMessageType.text:
           return TextMessage(message: message);
@@ -42,7 +43,7 @@ class Message extends StatelessWidget {
             ),
             SizedBox(width: kDefaultPadding / 2),
           ],
-          messageContaint(message),
+          messageContainer(message),
           if (message.isSender) MessageStatusDot(status: message.messageStatus)
         ],
       ),

@@ -23,8 +23,7 @@ class _ChatInputState extends State<ChatInputField> {
 
   Future<DocumentReference> sendMessage(String message) {
     myController.clear();
-    // Scrollable.ensureVisible(lastMessageKey.currentContext!);
-    return FirebaseFirestore.instance
+    final fbAdd = FirebaseFirestore.instance
         .collection('chats')
         .doc('meme_channel_1')
         .collection('messages')
@@ -33,6 +32,8 @@ class _ChatInputState extends State<ChatInputField> {
       'userId': this.userId,
       'timestamp': FieldValue.serverTimestamp(),
     });
+
+    return fbAdd;
   }
 
   @override
