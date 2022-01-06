@@ -55,7 +55,7 @@ class SigninOrSignupScreen extends StatelessWidget {
               ),
               Spacer(),
               PrimaryButton(
-                color: Theme.of(context).colorScheme.secondary,
+                color: kSecondaryColor,
                 text: "Sign In With Google",
                 press: signInWithGoogle,
               ),

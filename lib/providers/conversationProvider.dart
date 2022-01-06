@@ -3,11 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_messenger/models/Convo.dart';
 import 'package:meme_messenger/screens/messages/components/body.dart';
-import 'package:meme_messenger/screens/messages/message_screen.dart';
 import 'package:provider/provider.dart';
-
 import 'package:meme_messenger/models/ChatMessage.dart';
-import 'package:meme_messenger/services/database.dart';
 
 class ConversationProvider extends StatelessWidget {
   final Stream<QuerySnapshot> _convoStream = FirebaseFirestore.instance
@@ -40,7 +37,7 @@ class ConversationProvider extends StatelessWidget {
 
             final bool isSendr =
                 userId.isNotEmpty && data['userId'].toString() == userId;
-            return ChatMessage(
+            return Message(
               userId: data['userId'],
               content: data['content'],
               timestamp: data['timestamp'],

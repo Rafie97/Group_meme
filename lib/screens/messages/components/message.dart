@@ -6,24 +6,24 @@ import 'audio_message.dart';
 import 'text_message.dart';
 import 'video_message.dart';
 
-class Message extends StatelessWidget {
+class ChatMessage extends StatelessWidget {
   final GlobalKey key;
-  final ChatMessage message;
+  final Message message;
 
-  const Message({
+  const ChatMessage({
     required this.key,
     required this.message,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Widget messageContainer(ChatMessage message) {
+    Widget messageContainer(Message message) {
       switch (message.messageType) {
-        case ChatMessageType.text:
+        case MessageType.text:
           return TextMessage(message: message);
-        case ChatMessageType.audio:
+        case MessageType.audio:
           return AudioMessage(message: message);
-        case ChatMessageType.video:
+        case MessageType.video:
           return VideoMessage();
         default:
           return SizedBox();

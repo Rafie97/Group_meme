@@ -35,11 +35,11 @@ class Body extends HookWidget {
               child: SingleChildScrollView(
                   child: Column(children: [
                 for (int i = 0; i < convo.messages.length - 1; i++)
-                  Message(
+                  ChatMessage(
                     key: GlobalKey(),
                     message: convo.messages[i],
                   ),
-                Message(
+                ChatMessage(
                   key: lastMessageKey.value,
                   message: convo.lastMessage,
                 ),

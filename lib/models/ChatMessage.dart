@@ -2,22 +2,22 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum ChatMessageType { text, audio, image, video }
+enum MessageType { text, audio, image, video }
 enum MessageStatus { not_sent, not_view, viewed }
 
-class ChatMessage {
+class Message {
   final String userId;
   final String content;
   final dynamic timestamp;
-  final ChatMessageType messageType;
+  final MessageType messageType;
   final MessageStatus messageStatus;
   final bool isSender;
 
-  factory ChatMessage.fromMap(Map<String, dynamic> data) {
+  factory Message.fromMap(Map<String, dynamic> data) {
     var USERID = "";
     var CONTENT = "";
     var TIMESTAMP = Timestamp.now();
-    var MESSAGETYPE = ChatMessageType.text;
+    var MESSAGETYPE = MessageType.text;
     var MESSAGESTATUS = MessageStatus.viewed;
     var ISSENDER = false;
 
@@ -31,14 +31,14 @@ class ChatMessage {
           else if (key == 'timestamp')
             {TIMESTAMP = value as dynamic}
           else if (key == 'messageType')
-            {MESSAGETYPE = value as ChatMessageType}
+            {MESSAGETYPE = value as MessageType}
           else if (key == 'messageStatus')
             {MESSAGESTATUS = value as MessageStatus}
           else if (key == 'isSender')
             {ISSENDER = value as bool}
         });
 
-    return new ChatMessage(
+    return new Message(
         userId: USERID,
         content: CONTENT,
         timestamp: TIMESTAMP,
@@ -47,11 +47,11 @@ class ChatMessage {
         isSender: ISSENDER);
   }
 
-  ChatMessage({
+  Message({
     required this.userId,
     required this.content,
     this.timestamp,
-    this.messageType = ChatMessageType.text,
+    this.messageType = MessageType.text,
     this.messageStatus = MessageStatus.viewed,
     this.isSender = false,
   });

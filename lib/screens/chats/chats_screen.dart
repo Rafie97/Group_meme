@@ -63,11 +63,13 @@ class _ChatsScreenState extends State<ChatsScreen> {
   AppBar buildAppBar() {
     return AppBar(
       automaticallyImplyLeading: false,
-      title: Text("Chats"),
+      title: Padding(child: Text("Chats"), padding: EdgeInsets.only(left: 5)),
       actions: [
         IconButton(
-          icon: Icon(Icons.search),
-          onPressed: () {},
+          icon: Icon(Icons.logout),
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+          },
         ),
       ],
     );

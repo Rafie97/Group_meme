@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
 class AudioMessage extends StatelessWidget {
-  final ChatMessage? message;
+  final Message? message;
 
   const AudioMessage({Key? key, required this.message}) : super(key: key);
   @override
