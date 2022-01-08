@@ -1,11 +1,8 @@
 import 'package:meme_messenger/constants.dart';
 import 'package:flutter/material.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meme_messenger/providers/conversationProvider.dart';
-import 'package:meme_messenger/screens/welcome/welcome_screen.dart';
-import 'package:provider/provider.dart';
+import 'package:meme_messenger/services/auth.dart';
 import 'components/body.dart';
+import 'package:provider/provider.dart';
 
 class ChatsScreen extends StatefulWidget {
   @override
@@ -68,7 +65,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         IconButton(
           icon: Icon(Icons.logout),
           onPressed: () {
-            FirebaseAuth.instance.signOut();
+            context.read<AuthService>().signOut(context);
           },
         ),
       ],

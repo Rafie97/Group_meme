@@ -1,5 +1,6 @@
 import 'package:meme_messenger/providers/loginRouter.dart';
 import 'package:meme_messenger/screens/welcome/welcome_screen.dart';
+import 'package:meme_messenger/services/auth.dart';
 import 'package:meme_messenger/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,10 +11,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 class MainProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.authStateChanges();
-    return StreamProvider<User?>.value(
-        initialData: null,
-        value: user,
+    return MultiProvider(
+        providers: [
+          Provider<AuthService>(
+            create: (_) => AuthService(FirebaseAuth.instance),
+          ),
+          StreamProvider(
+              create: (context) => context.read<AuthService>().authStateChanges,
+              initialData: null)
+        ],
         child: MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,

@@ -7,16 +7,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 class LoginRouter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, User? user, child) {
-        final userId = user?.uid ?? '';
-        print("USERRRR + $userId + $user");
-        if (userId.isNotEmpty) {
-          return ChatsScreen();
-        } else {
-          return WelcomeScreen();
-        }
-      },
-    );
+    final user = context.watch<User?>();
+    print("THIS THE GOT DAM USR: $user");
+    if (user != null) {
+      return ChatsScreen();
+    } else {
+      return WelcomeScreen();
+    }
   }
 }

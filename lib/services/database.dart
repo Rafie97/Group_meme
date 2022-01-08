@@ -8,19 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class Database {
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  // static Stream<List<ChatMessage>> streamMessages(
-  //     AsyncSnapshot<QuerySnapshot> snapshot) {
-  //   var map = snapshot.data!.docs.map((DocumentSnapshot document) {
-  //     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-  //     return ListTile(
-  //       title: Text(data['userId']),
-  //       subtitle: Text(data['content']),
-  //     );
-  //   }).toList();
-
-  //   return map;
-  // }
-
   static Future<DocumentReference> sendMessage(String message) {
     return _db
         .collection('chats')
