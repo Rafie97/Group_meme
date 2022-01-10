@@ -7,17 +7,19 @@ import 'package:provider/provider.dart';
 import 'package:meme_messenger/models/ChatMessage.dart';
 
 class ConversationProvider extends StatelessWidget {
-  final Stream<QuerySnapshot> _convoStream = FirebaseFirestore.instance
-      .collection('chats')
-      .doc("meme_channel_1")
-      .collection('messages')
-      .orderBy('timestamp', descending: false)
-      .snapshots();
-
   final lastMessageKey = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
+    final docString =
+        user != null && user.isAnonymous ? 'all_channel_1' : 'meme_channel_1';
+    final Stream<QuerySnapshot> _convoStream = FirebaseFirestore.instance
+        .collection('chats')
+        .doc(docString)
+        .collection('messages')
+        .orderBy('timestamp', descending: false)
+        .snapshots();
     return Consumer(builder: (context, User? user, child) {
       final userId = user?.uid ?? '';
       return StreamBuilder<QuerySnapshot>(

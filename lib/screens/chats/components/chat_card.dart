@@ -1,5 +1,6 @@
 import 'package:meme_messenger/models/Chat.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_messenger/models/Convo.dart';
 
 import '../../../constants.dart';
 
@@ -10,7 +11,7 @@ class ChatCard extends StatelessWidget {
     required this.press,
   }) : super(key: key);
 
-  final Chat chat;
+  final Convo chat;
   final VoidCallback press;
 
   @override
@@ -28,22 +29,22 @@ class ChatCard extends StatelessWidget {
                   radius: 24,
                   backgroundImage: AssetImage(chat.image),
                 ),
-                if (chat.isActive)
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      height: 16,
-                      width: 16,
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            width: 3),
-                      ),
-                    ),
-                  )
+                // if (chat.isActive)
+                //   Positioned(
+                //     right: 0,
+                //     bottom: 0,
+                //     child: Container(
+                //       height: 16,
+                //       width: 16,
+                //       decoration: BoxDecoration(
+                //         color: kPrimaryColor,
+                //         shape: BoxShape.circle,
+                //         border: Border.all(
+                //             color: Theme.of(context).scaffoldBackgroundColor,
+                //             width: 3),
+                //       ),
+                //     ),
+                //   )
               ],
             ),
             Expanded(
@@ -62,7 +63,7 @@ class ChatCard extends StatelessWidget {
                     Opacity(
                       opacity: 0.64,
                       child: Text(
-                        chat.lastMessage,
+                        "${chat.lastMessage.userId}: ${chat.lastMessage.content}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -71,10 +72,10 @@ class ChatCard extends StatelessWidget {
                 ),
               ),
             ),
-            Opacity(
-              opacity: 0.64,
-              child: Text(chat.time),
-            ),
+            // Opacity(
+            //   opacity: 0.64,
+            //   child: Text(chat.time),
+            // ),
           ],
         ),
       ),

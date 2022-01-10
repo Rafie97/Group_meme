@@ -1,5 +1,6 @@
 import 'package:meme_messenger/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_messenger/providers/chatsProvider.dart';
 import 'package:meme_messenger/services/auth.dart';
 import 'components/body.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
     //     :
     return Scaffold(
       appBar: buildAppBar(),
-      body: Body(),
+      body: ChatsProvider(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: kPrimaryColor,

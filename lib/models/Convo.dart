@@ -1,13 +1,14 @@
 import 'package:meme_messenger/models/ChatMessage.dart';
 
 class Convo {
-  final String convoId;
+  final String convoId, name, image;
   final List<Message> messages;
   final Message lastMessage;
 
-  Convo({
-    required this.convoId,
-    required this.messages,
-    required this.lastMessage,
-  });
+  Convo(
+      {this.name = '',
+      this.image = '',
+      required this.convoId,
+      this.messages = const [],
+      required this.lastMessage});
 }
