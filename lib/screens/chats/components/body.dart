@@ -39,7 +39,7 @@ class Body extends StatelessWidget {
               press: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MessageScreen(),
+                  builder: (context) => MessageScreen(convo: chats[index]),
                 ),
               ),
             ),

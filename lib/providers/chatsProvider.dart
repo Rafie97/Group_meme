@@ -20,7 +20,6 @@ class ChatsProvider extends StatelessWidget {
         }
         final chats = snapshot.data!.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-          print("YOYOYOYOYOOYOYOYY ${data['lastMessage']['userName']}");
           return new Convo(
             name: data['name'] as String,
             convoId: document.id,

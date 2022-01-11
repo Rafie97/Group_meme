@@ -1,31 +1,40 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_messenger/constants.dart';
+import 'package:meme_messenger/models/Convo.dart';
 import 'package:meme_messenger/screens/messages/components/message.dart';
 
 class ChatInputField extends StatefulWidget {
+  final Convo convo;
   final GlobalKey lastMessageKey;
   final String userId;
   const ChatInputField(
-      {Key? key, required this.lastMessageKey, required this.userId})
+      {Key? key,
+      required this.convo,
+      required this.lastMessageKey,
+      required this.userId})
       : super(key: key);
   @override
-  _ChatInputState createState() =>
-      _ChatInputState(lastMessageKey: lastMessageKey, userId: userId);
+  _ChatInputState createState() => _ChatInputState(
+      convo: convo, lastMessageKey: lastMessageKey, userId: userId);
 }
 
 class _ChatInputState extends State<ChatInputField> {
   final myController = TextEditingController();
+  final Convo convo;
   final GlobalKey lastMessageKey;
   final String userId;
 
-  _ChatInputState({required this.lastMessageKey, required this.userId});
+  _ChatInputState(
+      {required this.convo,
+      required this.lastMessageKey,
+      required this.userId});
 
   Future<DocumentReference> sendMessage(String message) {
     myController.clear();
     final fbAdd = FirebaseFirestore.instance
         .collection('chats')
-        .doc('meme_channel_1')
+        .doc(convo.convoId)
         .collection('messages')
         .add({
       'content': message,

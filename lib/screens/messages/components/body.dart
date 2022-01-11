@@ -48,6 +48,7 @@ class Body extends HookWidget {
         Consumer(builder: (context, User? user, child) {
           final userId = user?.uid ?? '';
           return ChatInputField(
+            convo: convo,
             userId: userId,
             lastMessageKey: lastMessageKey.value,
           );

@@ -1,15 +1,19 @@
 import 'package:meme_messenger/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_messenger/models/Convo.dart';
 import 'package:meme_messenger/providers/conversationProvider.dart';
 
 import 'components/body.dart';
 
 class MessageScreen extends StatelessWidget {
+  final Convo convo;
+  MessageScreen({required this.convo});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: ConversationProvider(),
+      body: ConversationProvider(convoId: convo.convoId),
     );
   }
 
@@ -27,7 +31,7 @@ class MessageScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Ethnochatinalists",
+                convo.name,
                 style: TextStyle(fontSize: 16),
               ),
               Text(
