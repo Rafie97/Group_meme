@@ -1,12 +1,12 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:meme_messenger/components/primary_button.dart';
 import 'package:meme_messenger/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:meme_messenger/services/auth.dart';
-import 'package:provider/provider.dart';
+import 'package:meme_messenger/controllers/auth_controller.dart';
 
-class SigninOrSignupScreen extends StatelessWidget {
+class SigninOrSignupScreen extends HookConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -25,14 +25,16 @@ class SigninOrSignupScreen extends StatelessWidget {
                 color: kSecondaryColor,
                 text: "Sign In With Google",
                 press: () {
-                  context.read<AuthService>().signInWithGoogle(context);
+                  ref
+                      .read(authControllerProvider.notifier)
+                      .signInWithGoogle(context);
                 },
               ),
               SizedBox(height: kDefaultPadding * 1.5),
               PrimaryButton(
                 text: "Sign In Anonymously",
                 press: () {
-                  context.read<AuthService>().signInAnon(context);
+                  ref.read(authControllerProvider.notifier).signInAnon(context);
                 },
               ),
               Spacer(flex: 2),

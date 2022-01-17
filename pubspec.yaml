@@ -33,6 +33,9 @@ dependencies:
   provider: ^6.0.1
   flutter_hooks: ^0.18.1
   google_sign_in: ^5.2.1
+  hooks_riverpod: ^1.0.3
+  freezed: ^1.1.1
+  freezed_annotation: ^1.1.0
 
 
 dev_dependencies:

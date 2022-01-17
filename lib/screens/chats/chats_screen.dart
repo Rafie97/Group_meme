@@ -1,26 +1,16 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:meme_messenger/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_messenger/providers/chatsProvider.dart';
-import 'package:meme_messenger/services/auth.dart';
-import 'components/body.dart';
-import 'package:provider/provider.dart';
+import 'package:meme_messenger/controllers/auth_controller.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ChatsScreen extends StatefulWidget {
+class ChatsScreen extends HookConsumerWidget {
   @override
-  _ChatsScreenState createState() => _ChatsScreenState();
-}
-
-class _ChatsScreenState extends State<ChatsScreen> {
-  int _selectedIndex = 1;
-
-  @override
-  Widget build(BuildContext context) {
-    // final FirebaseAuth firebaseUser = Provider.of<FirebaseAuth>(context);
-    // (firebaseUser == null)
-    //     ? WelcomeScreen()
-    //     :
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _selectedIndex = useState(1);
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context, ref),
       body: ChatsProvider(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -30,18 +20,17 @@ class _ChatsScreenState extends State<ChatsScreen> {
           color: Color(0xFF969696),
         ),
       ),
-      bottomNavigationBar: buildBottomNavigationBar(),
+      bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
     );
   }
 
-  BottomNavigationBar buildBottomNavigationBar() {
+  BottomNavigationBar buildBottomNavigationBar(
+      ValueNotifier<int> _selectedIndex) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      currentIndex: _selectedIndex,
+      currentIndex: _selectedIndex.value,
       onTap: (value) {
-        setState(() {
-          _selectedIndex = value;
-        });
+        _selectedIndex.value = value;
       },
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.messenger), label: "Chats"),
@@ -58,7 +47,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
     );
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(BuildContext context, WidgetRef ref) {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Padding(child: Text("Chats"), padding: EdgeInsets.only(left: 5)),
@@ -66,7 +55,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         IconButton(
           icon: Icon(Icons.logout),
           onPressed: () {
-            context.read<AuthService>().signOut(context);
+            ref.read(authControllerProvider.notifier).signOut(context);
           },
         ),
       ],

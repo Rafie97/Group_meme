@@ -8,24 +8,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 /////// NEXT: https://github.com/Xenon-Labs/Flutter-Development/tree/master/chat_app/lib/screens/messaging
 
-class MainProvider extends StatelessWidget {
+class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          Provider<AuthService>(
-            create: (_) => AuthService(FirebaseAuth.instance),
-          ),
-          StreamProvider(
-              create: (context) => context.read<AuthService>().authStateChanges,
-              initialData: null),
-        ],
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          debugShowCheckedModeBanner: false,
-          theme: lightThemeData(context),
-          darkTheme: darkThemeData(context),
-          home: LoginRouter(),
-        ));
+    return MaterialApp(
+      title: 'GroupMeme',
+      debugShowCheckedModeBanner: false,
+      theme: lightThemeData(context),
+      darkTheme: darkThemeData(context),
+      home: LoginRouter(),
+    );
   }
 }
