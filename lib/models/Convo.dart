@@ -8,7 +8,7 @@ class Convo {
   Convo(
       {this.name = '',
       this.image = '',
-      required this.convoId,
+      this.convoId = '',
       this.messages = const [],
       required this.lastMessage});
 }

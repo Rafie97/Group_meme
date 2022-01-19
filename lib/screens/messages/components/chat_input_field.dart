@@ -1,59 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:meme_messenger/constants.dart';
+import 'package:meme_messenger/controllers/message_controller.dart';
 import 'package:meme_messenger/models/Convo.dart';
-import 'package:meme_messenger/screens/messages/components/message.dart';
 
-class ChatInputField extends StatefulWidget {
-  final Convo convo;
-  final GlobalKey lastMessageKey;
-  final String userId;
-  const ChatInputField(
-      {Key? key,
-      required this.convo,
-      required this.lastMessageKey,
-      required this.userId})
-      : super(key: key);
-  @override
-  _ChatInputState createState() => _ChatInputState(
-      convo: convo, lastMessageKey: lastMessageKey, userId: userId);
-}
-
-class _ChatInputState extends State<ChatInputField> {
+class ChatInputField extends HookConsumerWidget {
   final myController = TextEditingController();
   final Convo convo;
   final GlobalKey lastMessageKey;
-  final String userId;
 
-  _ChatInputState(
-      {required this.convo,
-      required this.lastMessageKey,
-      required this.userId});
+  ChatInputField({Key? key, required this.convo, required this.lastMessageKey})
+      : super(key: key);
 
-  Future<DocumentReference> sendMessage(String message) {
-    myController.clear();
-    final fbAdd = FirebaseFirestore.instance
-        .collection('chats')
-        .doc(convo.convoId)
-        .collection('messages')
-        .add({
-      'content': message,
-      'userId': this.userId,
-      'timestamp': FieldValue.serverTimestamp(),
-    });
-
-    return fbAdd;
-  }
-
-  @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
     myController.dispose();
-    super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    void sendMessage(String message) {
+      ref.read(messageProvider.notifier).sendMessage(convo.convoId, message);
+      // myController.clear();
+    }
+
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
