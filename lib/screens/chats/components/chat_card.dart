@@ -63,7 +63,7 @@ class ChatCard extends StatelessWidget {
                     Opacity(
                       opacity: 0.64,
                       child: Text(
-                        "${chat.lastMessage.userId}: ${chat.lastMessage.content}",
+                        "${chat.lastMessage.userName}: ${chat.lastMessage.content}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

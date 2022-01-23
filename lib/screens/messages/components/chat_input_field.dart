@@ -1,16 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:meme_messenger/constants.dart';
 import 'package:meme_messenger/controllers/message_controller.dart';
-import 'package:meme_messenger/models/Convo.dart';
 
-class ChatInputField extends HookConsumerWidget {
+class ChatInputField extends ConsumerWidget {
   final myController = TextEditingController();
-  final Convo convo;
+  final String convoId;
   final GlobalKey lastMessageKey;
 
-  ChatInputField({Key? key, required this.convo, required this.lastMessageKey})
+  ChatInputField(
+      {Key? key, required this.convoId, required this.lastMessageKey})
       : super(key: key);
 
   void dispose() {
@@ -20,8 +19,8 @@ class ChatInputField extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     void sendMessage(String message) {
-      ref.read(messageProvider.notifier).sendMessage(convo.convoId, message);
-      // myController.clear();
+      ref.read(messageProvider.notifier).sendMessage(convoId, message);
+      myController.clear();
     }
 
     return Container(

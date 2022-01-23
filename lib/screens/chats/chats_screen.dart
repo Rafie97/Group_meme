@@ -1,9 +1,9 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:meme_messenger/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:meme_messenger/providers/chatsProvider.dart';
 import 'package:meme_messenger/controllers/auth_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:meme_messenger/screens/chats/components/body.dart';
 
 class ChatsScreen extends HookConsumerWidget {
   @override
@@ -11,7 +11,7 @@ class ChatsScreen extends HookConsumerWidget {
     final _selectedIndex = useState(1);
     return Scaffold(
       appBar: buildAppBar(context, ref),
-      body: ChatsProvider(),
+      body: Body(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: kPrimaryColor,

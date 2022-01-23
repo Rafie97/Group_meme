@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:meme_messenger/providers/general_providers.dart';
 
 abstract class BaseMessageRepository {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getConvos();
   Stream<QuerySnapshot<Map<String, dynamic>>> getMessages(String chatId);
   void sendMessage(String chatId, String message);
 }
@@ -14,6 +15,12 @@ final messageRepoProvider =
 class MessageRepository implements BaseMessageRepository {
   final Reader _read;
   MessageRepository(this._read);
+
+  @override
+  Stream<QuerySnapshot<Map<String, dynamic>>> getConvos() {
+    final _firestore = _read(firebaseFirestoreProvider);
+    return _firestore.collection('chats').snapshots();
+  }
 
   @override
   Stream<QuerySnapshot<Map<String, dynamic>>> getMessages(String chatId) {
@@ -39,9 +46,11 @@ class MessageRepository implements BaseMessageRepository {
         'timestamp': FieldValue.serverTimestamp(),
       });
       FirebaseFirestore.instance.collection('chats').doc(chatId).update({
-        'lastMessage': message,
-        'lastMessageTimestamp': FieldValue.serverTimestamp(),
-        'lastMessageUserId': user.uid,
+        'lastMessage': {
+          'content': message,
+          'timestamp': FieldValue.serverTimestamp(),
+          'userId': user.uid,
+        }
       });
     }
   }
