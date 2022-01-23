@@ -29,7 +29,7 @@ class ChatCard extends StatelessWidget {
                   radius: 24,
                   backgroundImage: AssetImage(chat.image),
                 ),
-                // if (chat.isActive)
+                // if (chat.isActive) //////////////////     KEEP THIS
                 //   Positioned(
                 //     right: 0,
                 //     bottom: 0,

@@ -14,13 +14,12 @@ class MessageController extends StateNotifier<List<Message>?> {
 
   void getMessages(String chatId) {
     _messageSubscription?.cancel();
-    _messageSubscription = _reader(messageRepositoryProvider)
-        .getMessages(chatId)
-        .listen((msgs) => state = msgs);
+    _reader(messageRepoProvider).getMessages(chatId);
+    // .then((msgs) => state = msgs);
   }
 
   void sendMessage(String chatId, String message) {
-    _reader(messageRepositoryProvider).sendMessage(chatId, message);
+    _reader(messageRepoProvider).sendMessage(chatId, message);
   }
 
   @override
