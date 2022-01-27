@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:meme_messenger/repositories/auth_repository.dart';
 
-final authControllerProvider =
-    StateNotifierProvider((ref) => AuthController(ref.read));
+final authControllerProvider = StateNotifierProvider<AuthController, User?>(
+    (ref) => AuthController(ref.read));
 
 class AuthController extends StateNotifier<User?> {
   final Reader _reader;

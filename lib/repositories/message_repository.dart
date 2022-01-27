@@ -34,22 +34,21 @@ class MessageRepository implements BaseMessageRepository {
   }
 
   void sendMessage(String chatId, String message) {
-    final user = _read(authControllerProvider.notifier).state;
+    final _firestore = _read(firebaseFirestoreProvider);
+    final user = _read(authControllerProvider);
     if (user != null) {
-      FirebaseFirestore.instance
-          .collection('chats')
-          .doc(chatId)
-          .collection('messages')
-          .add({
+      _firestore.collection('chats').doc(chatId).collection('messages').add({
         'content': message,
         'userId': user.uid,
         'timestamp': FieldValue.serverTimestamp(),
+        'userName': user.displayName ?? 'Rafa',
       });
-      FirebaseFirestore.instance.collection('chats').doc(chatId).update({
+      _firestore.collection('chats').doc(chatId).update({
         'lastMessage': {
           'content': message,
           'timestamp': FieldValue.serverTimestamp(),
           'userId': user.uid,
+          'userName': user.displayName ?? 'Rafa',
         }
       });
     }
