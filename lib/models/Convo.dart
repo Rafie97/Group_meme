@@ -1,4 +1,4 @@
-import 'package:meme_messenger/models/ChatMessage.dart';
+import 'package:meme_messenger/models/Message.dart';
 
 class Convo {
   final String convoId, name, image;

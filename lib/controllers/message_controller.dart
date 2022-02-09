@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:meme_messenger/models/ChatMessage.dart';
+import 'package:meme_messenger/models/Message.dart';
 import 'package:meme_messenger/repositories/message_repository.dart';
 
 final messageProvider =

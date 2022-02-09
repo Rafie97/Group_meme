@@ -1,4 +1,4 @@
-import 'package:meme_messenger/models/ChatMessage.dart';
+import 'package:meme_messenger/models/Message.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
